@@ -162,22 +162,22 @@
             <p class="section__tag">Почему мы</p>
             <h2 class="section__title">Не просто код, а&nbsp;решение вашей задачи</h2>
             <div class="why__grid">
-                <div class="why__item" data-reveal>
+                <div class="why__item" data-reveal="left">
                     <span class="why__number">01</span>
                     <h3 class="why__heading">С душой</h3>
                     <p class="why__text">Animus — это дух и страсть. Мы не пишем код на автомате. Каждый проект для нас — произведение, в которое мы вкладываем себя.</p>
                 </div>
-                <div class="why__item" data-reveal>
+                <div class="why__item" data-reveal="left">
                     <span class="why__number">02</span>
                     <h3 class="why__heading">Доступно</h3>
                     <p class="why__text">Честные цены без агентских наценок. Вы платите за результат, а не за офис в центре и менеджеров менеджеров.</p>
                 </div>
-                <div class="why__item" data-reveal>
+                <div class="why__item" data-reveal="left">
                     <span class="why__number">03</span>
                     <h3 class="why__heading">Под ключ</h3>
                     <p class="why__text">От идеи до работающего продукта. Аналитика, дизайн, разработка, запуск и поддержка — всё в одних руках.</p>
                 </div>
-                <div class="why__item" data-reveal>
+                <div class="why__item" data-reveal="left">
                     <span class="why__number">04</span>
                     <h3 class="why__heading">Невозможное — возможно</h3>
                     <p class="why__text">6+ лет в enterprise-разработке. Salesforce, Magento, Shopify, кастомные решения — мы знаем, как делать сложное простым.</p>
@@ -251,30 +251,34 @@
                         </a>
                     </div>
                 </div>
-                <form class="form" id="contactForm" action="#" method="POST">
-                    <div class="form__group">
-                        <input type="text" name="name" class="form__input" placeholder="Ваше имя" required>
-                    </div>
-                    <div class="form__group">
-                        <input type="email" name="email" class="form__input" placeholder="Email или телефон" required>
-                    </div>
-                    <div class="form__group">
-                        <textarea name="message" class="form__input form__textarea" placeholder="Расскажите о вашем проекте" rows="4"></textarea>
-                    </div>
-                    <div class="form__consent">
-                        <label>
-                            <input type="checkbox" name="consent" required>
-                            Я согласен на <a href="#privacy">обработку персональных данных</a>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
-                </form>
+                <div class="form__card">
+                    <form class="form" id="contactForm" action="#" method="POST">
+                        <div class="form__group">
+                            <input type="text" name="name" class="form__input" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form__group">
+                            <input type="email" name="email" class="form__input" placeholder="Email или телефон" required>
+                        </div>
+                        <div class="form__group">
+                            <textarea name="message" class="form__input form__textarea" placeholder="Расскажите о вашем проекте" rows="4"></textarea>
+                        </div>
+                        <div class="form__consent">
+                            <label>
+                                <input type="checkbox" name="consent" required>
+                                Я согласен на <a href="#privacy">обработку персональных данных</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+                        <p class="form__trust">Ответим в течение 24 часов</p>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
+        <p class="footer__tagline">Каждый проект — произведение, в которое мы вкладываем душу</p>
         <div class="container footer__inner">
             <div class="footer__brand">
                 <a href="#" class="logo">
