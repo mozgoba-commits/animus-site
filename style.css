@@ -94,6 +94,20 @@ body::after{
     transition:transform .3s cubic-bezier(.22,1,.36,1);
 }
 .logo:hover .logo__icon{transform:rotate(-4deg) scale(1.05)}
+.logo__heart{
+    transform-origin:290px 750px;
+    animation:heartbeat 1.8s ease-in-out 1s infinite;
+}
+@keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    12%{transform:scale(1.13)}
+    24%{transform:scale(1)}
+    36%{transform:scale(1.08)}
+    48%{transform:scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+    .logo__heart{animation:none}
+}
 .logo__text{
     font-family:var(--display);
     font-size:1.15rem;font-weight:400;color:var(--text);
