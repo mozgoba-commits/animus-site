@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animus — Brandbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', 'Inter', system-ui, sans-serif; background: #FAF7F2; color: #1A1714; line-height: 1.65; }
+
+  /* --- NAV --- */
+  .bb-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,247,242,.85); backdrop-filter: blur(16px);
+    border-bottom: 1px solid #E6DFD4; padding: 14px 0;
+  }
+  .bb-nav__inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .bb-nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .bb-nav__brand img { width: 28px; height: 28px; }
+  .bb-nav__brand span { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.1rem; color: #1A1714; }
+  .bb-nav__links { display: flex; gap: 24px; }
+  .bb-nav__links a {
+    font-size: .82rem; color: #7A6F62; text-decoration: none; letter-spacing: .02em;
+    transition: color .2s;
+  }
+  .bb-nav__links a:hover { color: #C4623A; }
+
+  /* --- LAYOUT --- */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 80px 0; border-bottom: 1px solid #E6DFD4; }
+  .section:last-of-type { border-bottom: none; }
+
+  /* --- COVER --- */
+  .cover {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 24px 80px;
+    background: linear-gradient(135deg, #A44E2B, #C4623A);
+    border-bottom: none;
+  }
+  .cover__icon { width: 120px; height: 120px; margin-bottom: 40px; filter: brightness(0) invert(1); }
+  .cover h1 {
+    font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400; color: #fff; letter-spacing: 14px; text-transform: uppercase;
+  }
+  .cover p { color: rgba(255,255,255,.7); font-size: 1.15rem; margin-top: 12px; letter-spacing: 2px; }
+  .cover__version {
+    display: inline-block; margin-top: 32px; padding: 6px 20px;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 20px;
+    color: rgba(255,255,255,.6); font-size: .78rem; letter-spacing: 1px;
+  }
+
+  /* --- SECTION HEADERS --- */
+  .sh { margin-bottom: 48px; }
+  .sh__tag {
+    font-family: 'JetBrains Mono', monospace; font-size: .75rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 3px; color: #C4623A; margin-bottom: 8px;
+  }
+  .sh__title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: #1A1714; }
+  .sh__sub { color: #7A6F62; font-size: .95rem; margin-top: 8px; max-width: 640px; }
+
+  /* --- GRID HELPERS --- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+  /* --- MISSION --- */
+  .mission__text {
+    font-size: 1.35rem; line-height: 1.7; color: #1A1714; max-width: 720px;
+  }
+  .mission__text em { font-family: 'Instrument Serif', serif; font-style: italic; color: #C4623A; }
+  .mission__values { display: flex; gap: 40px; margin-top: 48px; flex-wrap: wrap; }
+  .mission__value { flex: 1; min-width: 200px; }
+  .mission__value h4 {
+    font-family: 'JetBrains Mono', monospace; font-size: .8rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px; color: #C4623A; margin-bottom: 8px;
+  }
+  .mission__value p { font-size: .9rem; color: #7A6F62; line-height: 1.6; }
+
+  /* --- LOGO --- */
+  .logo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .logo-card {
+    border-radius: 16px; padding: 48px 32px; display: flex; flex-direction: column;
+    align-items: center; gap: 16px; transition: box-shadow .3s;
+  }
+  .logo-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.06); }
+  .logo-card.light { background: #FFFFFF; border: 1px solid #E6DFD4; }
+  .logo-card.dark { background: #1A1714; }
+  .logo-card.cream { background: #FAF7F2; border: 1px solid #E6DFD4; }
+  .logo-card.accent { background: linear-gradient(135deg, #A44E2B, #C4623A); }
+  .logo-card img { max-width: 160px; height: auto; }
+  .logo-card.full img { max-width: 300px; }
+  .logo-card .label {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem; font-weight: 500;
+    color: #B5AA9A; text-transform: uppercase; letter-spacing: 2px;
+  }
+  .logo-card.dark .label { color: #666; }
+  .logo-card.accent .label { color: rgba(255,255,255,.5); }
+
+  /* --- CLEAR SPACE --- */
+  .clearspace { display: flex; align-items: center; justify-content: center; gap: 64px; flex-wrap: wrap; }
+  .clearspace__demo {
+    position: relative; width: 280px; height: 280px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid #E6DFD4; border-radius: 16px; background: #fff;
+  }
+  .clearspace__demo img { width: 120px; height: 120px; }
+  .clearspace__demo::before {
+    content: ''; position: absolute;
+    top: 40px; bottom: 40px; left: 40px; right: 40px;
+    border: 1px dashed #C4623A; opacity: .4; border-radius: 8px;
+  }
+  .clearspace__rules { max-width: 360px; }
+  .clearspace__rules li {
+    font-size: .9rem; color: #7A6F62; margin-bottom: 12px; line-height: 1.5;
+    list-style: none; padding-left: 20px; position: relative;
+  }
+  .clearspace__rules li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 8px; height: 8px; border-radius: 50%; background: #C4623A;
+  }
+
+  /* --- MIN SIZE --- */
+  .minsize { display: flex; align-items: flex-end; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+  .minsize__item { text-align: center; }
+  .minsize__item img { display: block; margin: 0 auto 8px; }
+  .minsize__item span { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: #B5AA9A; }
+
+  /* --- DONTS --- */
+  .donts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .dont {
+    border-radius: 12px; padding: 32px 20px; text-align: center;
+    background: #fff; border: 1px solid #E6DFD4;
+  }
+  .dont img { width: 80px; height: 80px; margin-bottom: 12px; }
+  .dont span { font-size: .82rem; color: #7A6F62; display: block; }
+  .dont .x {
+    display: inline-block; width: 24px; height: 24px; line-height: 24px;
+    border-radius: 50%; background: #CF1D1B; color: #fff; font-size: .75rem;
+    font-weight: 700; margin-bottom: 8px;
+  }
+
+  /* --- COLORS --- */
+  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .swatch {
+    border-radius: 16px; overflow: hidden; background: #fff;
+    border: 1px solid #E6DFD4; transition: transform .2s;
+  }
+  .swatch:hover { transform: translateY(-2px); }
+  .swatch__color { height: 100px; }
+  .swatch__info { padding: 14px 16px; }
+  .swatch__name { font-size: .85rem; font-weight: 600; margin-bottom: 2px; }
+  .swatch__hex { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: #B5AA9A; }
+  .swatch__role { font-size: .78rem; color: #7A6F62; margin-top: 4px; }
+
+  .color-usage { margin-top: 48px; }
+  .color-usage__row {
+    display: flex; align-items: center; gap: 16px; padding: 14px 0;
+    border-bottom: 1px solid #E6DFD4; font-size: .88rem;
+  }
+  .color-usage__dot { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; }
+  .color-usage__name { font-weight: 600; min-width: 140px; }
+  .color-usage__desc { color: #7A6F62; }
+
+  /* --- TYPOGRAPHY --- */
+  .type-specimen { margin-bottom: 40px; padding: 32px; background: #fff; border: 1px solid #E6DFD4; border-radius: 16px; }
+  .type-specimen__label {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2px; color: #C4623A; margin-bottom: 12px;
+  }
+  .type-specimen__sample { margin-bottom: 8px; }
+  .type-specimen__meta { font-size: .78rem; color: #B5AA9A; font-family: 'JetBrains Mono', monospace; }
+
+  .type-scale { margin-top: 48px; }
+  .type-scale__row {
+    display: grid; grid-template-columns: 120px 1fr 200px; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid #E6DFD4; gap: 16px;
+  }
+  .type-scale__token { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: #C4623A; }
+  .type-scale__preview { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .type-scale__spec { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: #B5AA9A; text-align: right; }
+
+  /* --- ICONOGRAPHY --- */
+  .icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 16px; }
+  .icon-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 20px 12px; background: #fff; border: 1px solid #E6DFD4;
+    border-radius: 12px; transition: border-color .2s;
+  }
+  .icon-item:hover { border-color: #C4623A; }
+  .icon-item svg { width: 28px; height: 28px; color: #1A1714; }
+  .icon-item span { font-size: .7rem; color: #B5AA9A; }
+
+  .icon-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+  .icon-rule { padding: 24px; background: #fff; border: 1px solid #E6DFD4; border-radius: 12px; }
+  .icon-rule h4 { font-size: .85rem; font-weight: 600; margin-bottom: 8px; }
+  .icon-rule p { font-size: .85rem; color: #7A6F62; line-height: 1.5; }
+  .icon-rule code {
+    font-family: 'JetBrains Mono', monospace; font-size: .78rem;
+    background: #F2EDE5; padding: 2px 6px; border-radius: 4px;
+  }
+
+  /* --- COMPONENTS --- */
+  .comp-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+  .comp-label {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2px; color: #B5AA9A;
+    width: 100%; margin-bottom: 4px;
+  }
+  .btn-demo {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: .7rem 1.8rem; border-radius: 8px; font-size: .88rem;
+    font-weight: 500; text-decoration: none; cursor: pointer;
+    transition: transform .2s, box-shadow .2s; border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-demo:hover { transform: translateY(-2px); }
+  .btn-demo--primary { background: linear-gradient(135deg, #A44E2B, #C4623A); color: #fff; box-shadow: 0 4px 16px rgba(196,98,58,.25); }
+  .btn-demo--ghost { background: transparent; color: #7A6F62; border: 1px solid #E6DFD4; }
+  .btn-demo--ghost:hover { border-color: #C4623A; color: #C4623A; }
+
+  .card-demo {
+    background: #fff; border: 1px solid #E6DFD4; border-radius: 12px;
+    padding: 28px; transition: border-color .3s, box-shadow .3s; max-width: 320px;
+  }
+  .card-demo:hover { border-color: #C4623A; box-shadow: 0 8px 24px rgba(164,78,43,.08); }
+  .card-demo__icon {
+    width: 44px; height: 44px; display: grid; place-items: center;
+    border: 1.5px solid #E6DFD4; border-radius: 10px; margin-bottom: 16px; color: #C4623A;
+  }
+  .card-demo__icon svg { width: 22px; height: 22px; }
+  .card-demo h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .card-demo p { font-size: .88rem; color: #7A6F62; line-height: 1.5; }
+
+  .input-demo {
+    width: 280px; padding: .75rem 1rem; border: 1px solid #E6DFD4;
+    border-radius: 8px; background: #F2EDE5; font-size: .9rem;
+    font-family: 'DM Sans', sans-serif; color: #1A1714;
+    transition: border-color .2s; outline: none;
+  }
+  .input-demo:focus { border-color: #C4623A; }
+  .input-demo::placeholder { color: #B5AA9A; }
+
+  .tag-demo {
+    font-family: 'JetBrains Mono', monospace; font-size: .75rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 2px; color: #C4623A;
+  }
+
+  /* --- SPACING --- */
+  .spacing-demo { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-end; margin-top: 16px; }
+  .spacing-block { text-align: center; }
+  .spacing-block__box {
+    background: rgba(196,98,58,.12); border: 1px dashed #C4623A;
+    border-radius: 4px; margin-bottom: 8px;
+  }
+  .spacing-block span { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: #B5AA9A; }
+
+  /* --- VOICE --- */
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .voice-card { padding: 28px; border-radius: 12px; background: #fff; border: 1px solid #E6DFD4; }
+  .voice-card h4 { font-size: .88rem; font-weight: 600; margin-bottom: 12px; }
+  .voice-card--do { border-left: 3px solid #4A9B6E; }
+  .voice-card--dont { border-left: 3px solid #CF1D1B; }
+  .voice-card blockquote {
+    font-size: .9rem; color: #7A6F62; line-height: 1.6;
+    font-style: italic; padding-left: 16px; border-left: 2px solid #E6DFD4;
+    margin-bottom: 12px;
+  }
+  .voice-card blockquote:last-child { margin-bottom: 0; }
+
+  /* --- PRINCIPLES --- */
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .principle { padding: 32px; border-radius: 16px; background: #fff; border: 1px solid #E6DFD4; }
+  .principle__num {
+    font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 800;
+    color: rgba(196,98,58,.15); margin-bottom: 12px;
+  }
+  .principle h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .principle p { font-size: .88rem; color: #7A6F62; line-height: 1.6; }
+
+  /* --- FOOTER --- */
+  .bb-footer { padding: 40px 0; text-align: center; font-size: .82rem; color: #B5AA9A; }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+    .icon-rules { grid-template-columns: 1fr; }
+    .type-scale__row { grid-template-columns: 1fr; gap: 4px; }
+    .type-scale__spec { text-align: left; }
+    .clearspace { flex-direction: column; }
+    .bb-nav__links { display: none; }
+    .section { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bb-nav">
+  <div class="bb-nav__inner">
+    <a href="#" class="bb-nav__brand">
+      <img src="logo/animus-color.svg" alt="Animus">
+      <span>brandbook</span>
+    </a>
+    <div class="bb-nav__links">
+      <a href="#mission">Mission</a>
+      <a href="#logo">Logo</a>
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#icons">Icons</a>
+      <a href="#components">Components</a>
+      <a href="#voice">Voice</a>
+      <a href="#principles">Principles</a>
+    </div>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover section">
+  <div>
+    <img src="logo/animus-color.svg" alt="Animus" class="cover__icon">
+    <h1>Animus</h1>
+    <p>Brand Guidelines</p>
+    <span class="cover__version">v2.0 &middot; April 2026</span>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section" id="mission">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">01 / Mission</div>
+      <h2 class="sh__title">Brand Story</h2>
+    </div>
+    <p class="mission__text">
+      <em>Animus</em> means spirit, soul, passion. We are a development studio that builds software with soul &mdash; treating every project as a craft, not a commodity. We turn complex ideas into elegant, working products for businesses across Belarus and beyond.
+    </p>
+    <div class="mission__values">
+      <div class="mission__value">
+        <h4>Soul</h4>
+        <p>Every line of code carries intention. We don't automate our craft &mdash; we invest ourselves in each project.</p>
+      </div>
+      <div class="mission__value">
+        <h4>Accessible</h4>
+        <p>Honest pricing without agency markups. You pay for results, not overhead.</p>
+      </div>
+      <div class="mission__value">
+        <h4>Turnkey</h4>
+        <p>From idea to running product. Analytics, design, development, launch, and support &mdash; all in one place.</p>
+      </div>
+      <div class="mission__value">
+        <h4>Impossible &rarr; Possible</h4>
+        <p>6+ years in enterprise. Salesforce, Magento, Shopify, custom solutions &mdash; we make the complex simple.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO -->
+<section class="section" id="logo">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">02 / Logo</div>
+      <h2 class="sh__title">Logo System</h2>
+      <p class="sh__sub">The Animus mark is a Celtic knot rosette symbolizing interconnection, craft, and flow &mdash; with a heart at its center representing soul and passion.</p>
+    </div>
+
+    <h3 style="font-size:1rem; font-weight:600; margin-bottom:16px;">Icon Variations</h3>
+    <div class="logo-grid">
+      <div class="logo-card light">
+        <img src="logo/animus-color.svg" alt="Color">
+        <span class="label">Primary</span>
+      </div>
+      <div class="logo-card dark">
+        <img src="logo/animus-white.svg" alt="White">
+        <span class="label">White</span>
+      </div>
+      <div class="logo-card light">
+        <img src="logo/animus-black.svg" alt="Black">
+        <span class="label">Black / Print</span>
+      </div>
+      <div class="logo-card cream">
+        <img src="logo/animus-mono-orange.svg" alt="Mono Orange">
+        <span class="label">Mono Terracotta</span>
+      </div>
+      <div class="logo-card accent">
+        <img src="logo/animus-white.svg" alt="White on accent">
+        <span class="label">On Brand BG</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem; font-weight:600; margin: 40px 0 16px;">Full Logo (Icon + Wordmark)</h3>
+    <div class="logo-grid">
+      <div class="logo-card light full">
+        <img src="logo/animus-full-color.svg" alt="Full Color">
+        <span class="label">Color on Light</span>
+      </div>
+      <div class="logo-card dark full">
+        <img src="logo/animus-full-white.svg" alt="Full White">
+        <span class="label">White on Dark</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem; font-weight:600; margin: 48px 0 16px;">Clear Space &amp; Minimum Size</h3>
+    <div class="clearspace">
+      <div class="clearspace__demo">
+        <img src="logo/animus-color.svg" alt="Clear space demo">
+      </div>
+      <ul class="clearspace__rules">
+        <li>Maintain clear space equal to the width of one "petal" around the mark at all times</li>
+        <li>Never crowd the logo with text, borders, or other graphical elements</li>
+        <li>The red heart must always be visible &mdash; never obscure or crop it</li>
+        <li>The heart stays <strong>#CF1D1B</strong> in all variants (never changes with the knot color)</li>
+      </ul>
+    </div>
+    <div class="minsize">
+      <div class="minsize__item">
+        <img src="logo/animus-color.svg" alt="64px" style="width:64px; height:64px;">
+        <span>64px &middot; Digital min</span>
+      </div>
+      <div class="minsize__item">
+        <img src="logo/animus-color.svg" alt="32px" style="width:32px; height:32px;">
+        <span>32px &middot; Favicon</span>
+      </div>
+      <div class="minsize__item">
+        <img src="logo/animus-color.svg" alt="16px" style="width:16px; height:16px;">
+        <span>16px &middot; Absolute min</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem; font-weight:600; margin: 48px 0 16px;">Logo Don'ts</h3>
+    <div class="donts">
+      <div class="dont">
+        <span class="x">X</span>
+        <img src="logo/animus-color.svg" alt="" style="opacity:.5; filter: blur(2px);">
+        <span>Don't blur or apply effects</span>
+      </div>
+      <div class="dont">
+        <span class="x">X</span>
+        <img src="logo/animus-color.svg" alt="" style="transform: skewX(-15deg);">
+        <span>Don't skew or distort</span>
+      </div>
+      <div class="dont">
+        <span class="x">X</span>
+        <img src="logo/animus-color.svg" alt="" style="filter: hue-rotate(180deg);">
+        <span>Don't recolor outside palette</span>
+      </div>
+      <div class="dont">
+        <span class="x">X</span>
+        <img src="logo/animus-color.svg" alt="" style="opacity:.3;">
+        <span>Don't reduce opacity below 80%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section class="section" id="colors">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">03 / Colors</div>
+      <h2 class="sh__title">Color Palette</h2>
+      <p class="sh__sub">Warm, earthy tones inspired by terracotta and cream. Never cold blues or grays. The palette evokes craft, warmth, and approachability.</p>
+    </div>
+
+    <h3 style="font-size:.88rem; font-weight:600; margin-bottom:16px;">Brand Colors</h3>
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch__color" style="background:#C4623A;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Terracotta</div>
+          <div class="swatch__hex">#C4623A</div>
+          <div class="swatch__role">Primary accent, CTAs, links</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#D8845E;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Terracotta Light</div>
+          <div class="swatch__hex">#D8845E</div>
+          <div class="swatch__role">Hover state, highlights</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#A44E2B;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Terracotta Dark</div>
+          <div class="swatch__hex">#A44E2B</div>
+          <div class="swatch__role">Gradients, header bg</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#ED6326;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Logo Orange</div>
+          <div class="swatch__hex">#ED6326</div>
+          <div class="swatch__role">Logo knot only</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#CF1D1B;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Heart Red</div>
+          <div class="swatch__hex">#CF1D1B</div>
+          <div class="swatch__role">Logo heart, always present</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:.88rem; font-weight:600; margin: 32px 0 16px;">Neutral &amp; Background</h3>
+    <div class="palette">
+      <div class="swatch">
+        <div class="swatch__color" style="background:#FAF7F2; border-bottom: 1px solid #E6DFD4;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Warm Cream</div>
+          <div class="swatch__hex">#FAF7F2</div>
+          <div class="swatch__role">Page background</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#F2EDE5;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Sand</div>
+          <div class="swatch__hex">#F2EDE5</div>
+          <div class="swatch__role">Alt sections, inputs</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#E6DFD4;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Surface</div>
+          <div class="swatch__hex">#E6DFD4</div>
+          <div class="swatch__role">Borders, dividers</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#7A6F62;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Dim Text</div>
+          <div class="swatch__hex">#7A6F62</div>
+          <div class="swatch__role">Secondary text</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch__color" style="background:#1A1714;"></div>
+        <div class="swatch__info">
+          <div class="swatch__name">Dark</div>
+          <div class="swatch__hex">#1A1714</div>
+          <div class="swatch__role">Headings, primary text</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-usage">
+      <h3 style="font-size:.88rem; font-weight:600; margin-bottom:16px;">Usage Guide</h3>
+      <div class="color-usage__row">
+        <div class="color-usage__dot" style="background:#C4623A;"></div>
+        <span class="color-usage__name">Accent</span>
+        <span class="color-usage__desc">Buttons, links, tags, active states, section markers. Never for large background areas.</span>
+      </div>
+      <div class="color-usage__row">
+        <div class="color-usage__dot" style="background:#CF1D1B;"></div>
+        <span class="color-usage__name">Heart Red</span>
+        <span class="color-usage__desc">Logo heart only. Not used as a UI color. Reserved exclusively for the brand mark.</span>
+      </div>
+      <div class="color-usage__row">
+        <div class="color-usage__dot" style="background:#FAF7F2; border: 1px solid #E6DFD4;"></div>
+        <span class="color-usage__name">Cream BG</span>
+        <span class="color-usage__desc">Primary page background. Always warm, never pure white (#fff is only for cards).</span>
+      </div>
+      <div class="color-usage__row">
+        <div class="color-usage__dot" style="background: linear-gradient(135deg, #A44E2B, #C4623A);"></div>
+        <span class="color-usage__name">Gradient</span>
+        <span class="color-usage__desc">Header, CTA buttons, hero accents. 135deg from dark to light terracotta.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="section" id="typography">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">04 / Typography</div>
+      <h2 class="sh__title">Type System</h2>
+      <p class="sh__sub">Four fonts serve distinct roles: DM Sans for body, Cinzel for the wordmark, Instrument Serif for brand accents, JetBrains Mono for technical elements.</p>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-specimen__label">Primary &middot; DM Sans</div>
+      <div class="type-specimen__sample" style="font-family:'DM Sans',sans-serif; font-size:36px; font-weight:700;">
+        Воплощаем идеи, которые казались невозможными
+      </div>
+      <div class="type-specimen__meta">DM Sans &middot; 400 / 500 / 600 / 700 &middot; Body, headings, UI elements</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-specimen__label">Wordmark &middot; Cinzel</div>
+      <div class="type-specimen__sample" style="font-family:'Cinzel',serif; font-size:36px; font-weight:400; letter-spacing:10px; text-transform:uppercase;">
+        ANIMUS
+      </div>
+      <div class="type-specimen__meta">Cinzel &middot; 400 / 500 / 600 &middot; Logo wordmark, elegant display text</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-specimen__label">Brand Accent &middot; Instrument Serif</div>
+      <div class="type-specimen__sample" style="font-family:'Instrument Serif',serif; font-style:italic; font-size:36px;">
+        animus &mdash; software with soul
+      </div>
+      <div class="type-specimen__meta">Instrument Serif Italic &middot; Nav wordmark, editorial accents, brand moments</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-specimen__label">Technical &middot; JetBrains Mono</div>
+      <div class="type-specimen__sample" style="font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:500; text-transform:uppercase; letter-spacing:3px;">
+        01 / Services &middot; #C4623A
+      </div>
+      <div class="type-specimen__meta">JetBrains Mono &middot; 500 / 800 &middot; Tags, labels, numbers, code</div>
+    </div>
+
+    <div class="type-scale">
+      <h3 style="font-size:.88rem; font-weight:600; margin-bottom:16px;">Type Scale</h3>
+      <div class="type-scale__row">
+        <span class="type-scale__token">H1 / Hero</span>
+        <span class="type-scale__preview" style="font-size:clamp(1.6rem,4vw,2.8rem); font-weight:700;">Воплощаем идеи</span>
+        <span class="type-scale__spec">clamp(2.4rem,6vw,4.5rem) / 700</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__token">H2 / Section</span>
+        <span class="type-scale__preview" style="font-size:clamp(1.4rem,3vw,2rem); font-weight:700;">Что мы создаём</span>
+        <span class="type-scale__spec">clamp(1.8rem,4vw,3rem) / 700</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__token">H3 / Card</span>
+        <span class="type-scale__preview" style="font-size:1.15rem; font-weight:600;">Сайты и лендинги</span>
+        <span class="type-scale__spec">1.15rem / 600</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__token">Body</span>
+        <span class="type-scale__preview" style="font-size:1rem; font-weight:400;">Быстрые, адаптивные, SEO-оптимизированные решения</span>
+        <span class="type-scale__spec">1rem / 400 / 1.65 lh</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__token">Tag</span>
+        <span class="type-scale__preview" style="font-family:'JetBrains Mono',monospace; font-size:.8rem; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:#C4623A;">Услуги</span>
+        <span class="type-scale__spec">JBM .8rem / 500 / upper</span>
+      </div>
+      <div class="type-scale__row">
+        <span class="type-scale__token">Number</span>
+        <span class="type-scale__preview" style="font-family:'JetBrains Mono',monospace; font-size:2rem; font-weight:800; color:rgba(196,98,58,.15);">01</span>
+        <span class="type-scale__spec">JBM 2rem / 800</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ICONOGRAPHY -->
+<section class="section" id="icons">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">05 / Iconography</div>
+      <h2 class="sh__title">Icon Style</h2>
+      <p class="sh__sub">Stroke-only SVG icons. Clean, geometric, minimal. Consistent 1.5px stroke width with round caps and joins.</p>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Sites</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span>Commerce</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/><path d="M8.24 4.47A4 4 0 0 1 12 2"/><path d="M17.5 12H21l-1.5 9H15"/><path d="M6.5 12H3l1.5 9H9"/><path d="M12 8v4"/><circle cx="12" cy="16" r="2"/></svg>
+        <span>AI</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        <span>ERP</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+        <span>Code</span>
+      </div>
+      <div class="icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span>Integration</span>
+      </div>
+    </div>
+
+    <div class="icon-rules">
+      <div class="icon-rule">
+        <h4>Stroke Properties</h4>
+        <p>All icons use <code>stroke-width: 1.5</code> with <code>stroke-linecap: round</code> and <code>stroke-linejoin: round</code>. No filled icons.</p>
+      </div>
+      <div class="icon-rule">
+        <h4>Size &amp; Container</h4>
+        <p>Icons sit in a 44x44px container with a thin border (<code>1.5px solid var(--surface)</code>) and 10px border-radius. Icon itself is 22px.</p>
+      </div>
+      <div class="icon-rule">
+        <h4>Color</h4>
+        <p>Default: <code>var(--text)</code> (#1A1714). On accent backgrounds: white. Active/hover: <code>var(--accent)</code>.</p>
+      </div>
+      <div class="icon-rule">
+        <h4>No AI Slop</h4>
+        <p>Never use gradient blobs, 3D renders, stock illustrations, or AI-generated imagery. Keep it geometric, clean, and intentional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="section" id="components">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">06 / Components</div>
+      <h2 class="sh__title">UI Components</h2>
+      <p class="sh__sub">A small, purposeful set of components. Every element follows the same warm, spacious design language.</p>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span class="comp-label">Buttons</span>
+      <div class="comp-row">
+        <button class="btn-demo btn-demo--primary">Primary Action</button>
+        <button class="btn-demo btn-demo--ghost">Secondary</button>
+      </div>
+      <div style="font-size:.82rem; color:#7A6F62; max-width:500px; line-height:1.5;">
+        Primary: gradient fill (135deg, --accent-lo to --accent), white text, subtle shadow.<br>
+        Ghost: transparent, border var(--surface), hover reveals accent border.<br>
+        Border-radius: 8px. Hover: translateY(-2px) + shadow.
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span class="comp-label">Cards</span>
+      <div class="comp-row">
+        <div class="card-demo">
+          <div class="card-demo__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+          </div>
+          <h4>Card Title</h4>
+          <p>White background, 1px border in surface color. Hover: accent border + subtle shadow. 12px radius, 2rem padding.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span class="comp-label">Form Inputs</span>
+      <div class="comp-row">
+        <input type="text" class="input-demo" placeholder="Your name">
+        <input type="email" class="input-demo" placeholder="Email">
+      </div>
+      <div style="font-size:.82rem; color:#7A6F62; line-height:1.5;">
+        Background: var(--bg-alt). Border: 1px solid var(--surface). Focus: accent border. 8px radius.
+      </div>
+    </div>
+
+    <div style="margin-bottom:48px;">
+      <span class="comp-label">Section Tags</span>
+      <div class="comp-row">
+        <span class="tag-demo">Services</span>
+        <span class="tag-demo">Process</span>
+        <span class="tag-demo">Contact</span>
+      </div>
+      <div style="font-size:.82rem; color:#7A6F62; line-height:1.5;">
+        JetBrains Mono, 0.8rem, weight 500, uppercase, letter-spacing 2px, accent color.
+      </div>
+    </div>
+
+    <div>
+      <span class="comp-label">Spacing System</span>
+      <div class="spacing-demo">
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:16px; height:16px;"></div>
+          <span>4px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:24px; height:24px;"></div>
+          <span>8px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:32px; height:32px;"></div>
+          <span>16px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:48px; height:48px;"></div>
+          <span>24px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:64px; height:64px;"></div>
+          <span>32px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:80px; height:80px;"></div>
+          <span>48px</span>
+        </div>
+        <div class="spacing-block">
+          <div class="spacing-block__box" style="width:112px; height:112px;"></div>
+          <span>7rem</span>
+        </div>
+      </div>
+      <div style="font-size:.82rem; color:#7A6F62; margin-top:16px; line-height:1.5;">
+        Generous whitespace is core to the Animus aesthetic. Sections use 7rem+ vertical padding. Cards use 2rem internal padding.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE & TONE -->
+<section class="section" id="voice">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">07 / Voice &amp; Tone</div>
+      <h2 class="sh__title">How We Speak</h2>
+      <p class="sh__sub">Warm, direct, confident without arrogance. We speak like a skilled craftsman who respects both the work and the client.</p>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card voice-card--do">
+        <h4>Do</h4>
+        <blockquote>"We build ideas that seemed impossible."</blockquote>
+        <blockquote>"Every project is crafted with soul."</blockquote>
+        <blockquote>"Honest pricing, no markups."</blockquote>
+      </div>
+      <div class="voice-card voice-card--dont">
+        <h4>Don't</h4>
+        <blockquote>"Leveraging cutting-edge synergies to deliver transformative solutions."</blockquote>
+        <blockquote>"We're the #1 best agency in the market!"</blockquote>
+        <blockquote>"Our robust, scalable, enterprise-grade platform..."</blockquote>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <h3 style="font-size:.88rem; font-weight:600; margin-bottom:16px;">Tone Principles</h3>
+      <div class="grid-2" style="gap:24px;">
+        <div>
+          <h4 style="font-size:.9rem; font-weight:600; margin-bottom:6px;">Human, not corporate</h4>
+          <p style="font-size:.88rem; color:#7A6F62; line-height:1.6;">Write as if talking to a friend who asked about your work. Use "we" and "you", not "the company" and "the client".</p>
+        </div>
+        <div>
+          <h4 style="font-size:.9rem; font-weight:600; margin-bottom:6px;">Confident, not boastful</h4>
+          <p style="font-size:.88rem; color:#7A6F62; line-height:1.6;">Show competence through specifics, not superlatives. "6+ years in Salesforce" beats "leading experts".</p>
+        </div>
+        <div>
+          <h4 style="font-size:.9rem; font-weight:600; margin-bottom:6px;">Simple language</h4>
+          <p style="font-size:.88rem; color:#7A6F62; line-height:1.6;">Short sentences. Active voice. No buzzwords. If a word doesn't add meaning, cut it.</p>
+        </div>
+        <div>
+          <h4 style="font-size:.9rem; font-weight:600; margin-bottom:6px;">Soul as differentiator</h4>
+          <p style="font-size:.88rem; color:#7A6F62; line-height:1.6;">"With soul" isn't a slogan &mdash; it's the operating principle. Every touchpoint should feel intentional and cared for.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN PRINCIPLES -->
+<section class="section" id="principles">
+  <div class="container">
+    <div class="sh">
+      <div class="sh__tag">08 / Principles</div>
+      <h2 class="sh__title">Design Principles</h2>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle__num">01</div>
+        <h4>Warm, Not Cold</h4>
+        <p>Cream over white, terracotta over blue. Every color, texture, and shadow should feel organic and inviting, like a well-lit workshop.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">02</div>
+        <h4>Space to Breathe</h4>
+        <p>Generous padding (7rem+ sections), uncrowded layouts, and deliberate emptiness. Whitespace is not wasted &mdash; it's what makes everything else work.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">03</div>
+        <h4>Subtle Borders</h4>
+        <p>Thin 1px borders in warm tones. No heavy shadows or hard edges. Depth comes from layering and gentle contrast.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">04</div>
+        <h4>Micro-Motion</h4>
+        <p>Smooth scroll reveals, gentle hovers, ease-in transitions. Nothing jumps, flashes, or bounces. Movement should feel like breathing.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">05</div>
+        <h4>Clean Iconography</h4>
+        <p>SVG stroke-only, 1.5px lines, round caps. Geometric and intentional. No decorative flourishes that don't serve understanding.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">06</div>
+        <h4>No AI Slop</h4>
+        <p>No gradient blobs, no 3D renders, no stock illustrations, no generic AI imagery. If it looks like a template, it doesn't belong here.</p>
+      </div>
+      <div class="principle">
+        <div class="principle__num">07</div>
+        <h4>Craft Over Cleverness</h4>
+        <p>Prefer the well-executed simple solution over the technically impressive complex one. Every element should feel considered, not clever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bb-footer">
+  <div class="container">
+    <p>Animus Brandbook v2.0 &middot; April 2026</p>
+    <p style="margin-top:4px;">Crafted with soul in Minsk, Belarus</p>
+  </div>
+</footer>
+
+</body>
+</html>
